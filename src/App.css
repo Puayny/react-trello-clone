@@ -28,6 +28,11 @@
     font-weight: bold;
 }
 
+.subboard-task-count-display {
+    width: 100%;
+    text-align: right;
+}
+
 .task-card-header {
     font-weight: bold;
 }

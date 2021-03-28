@@ -38,14 +38,26 @@ class Subboard extends React.Component {
     this.setState({ taskCardIds: this.state.taskCardIds.concat(null) });
   }
 
+  getTaskCountDisplayElement() {
+    const numTasks = this.state.taskCardIds.length;
+    const taskCountText = `${numTasks} ${numTasks === 1 ? "task" : "tasks"}`;
+    return (
+      <div className="subboard-task-count-display">
+        {taskCountText}
+      </div>
+    )
+  }
+
   render() {
     const taskCards = this.state.taskCardIds.map(function (item, index) {
       return <TaskCard />
     })
+    const taskCountDisplayElement = this.getTaskCountDisplayElement();
 
     return (
       <section className="subboard">
         <header className="subboard-header">{this.props.subboardName}</header>
+        {taskCountDisplayElement}
         {taskCards}
         <button onClick={() => this.addTask()}>
           (+) ADD TASK
