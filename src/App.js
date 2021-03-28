@@ -9,7 +9,14 @@ class TaskCard extends React.Component {
 
   render() {
     return (
-      <div>Task card</div>
+      <section className="task-card">
+        <header className="task-card-header">
+          Task card header
+        </header>
+        <div className="task-card-content">
+          Task card content
+        </div>
+      </section >
     )
   }
 }
@@ -25,7 +32,10 @@ class Subboard extends React.Component {
 
   render() {
     return (
-      <TaskCard />
+      <section className="subboard">
+        <header className="subboard-header">{this.props.subboardName}</header>
+        <TaskCard />
+      </section>
     )
   }
 }
@@ -41,7 +51,16 @@ class Board extends React.Component {
 
   render() {
     return (
-      <Subboard />
+      <section className="board">
+        <header className="board-header">
+          React Assignment - Task Board
+        </header>
+        <div className="subboards">
+          <Subboard subboardName="Pending" />
+          <Subboard subboardName="In Progress" />
+          <Subboard subboardName="Completed" />
+        </div>
+      </section>
     )
   }
 }
@@ -49,8 +68,6 @@ class Board extends React.Component {
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
       <Board />
     </div>
   );
