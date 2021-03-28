@@ -34,9 +34,13 @@
 
 .task-card input {
     border: none;
-    font-family: inherit;
+    width: 90%;
 }
 
 .task-card textarea {
     width: 90%;
+}
+
+input, textarea, button {
+    font-family:inherit;
 }
