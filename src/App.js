@@ -11,10 +11,11 @@ class TaskCard extends React.Component {
     return (
       <section className="task-card">
         <header className="task-card-header">
-          Task card header
+          <input type="text" defaultValue="Task header"></input>
         </header>
         <div className="task-card-content">
-          Task card content
+          <textarea rows="5" defaultValue="Task card content"></textarea>
+
         </div>
       </section >
     )
@@ -41,6 +42,7 @@ class Subboard extends React.Component {
     const taskCards = this.state.taskCardIds.map(function (item, index) {
       return <TaskCard />
     })
+
     return (
       <section className="subboard">
         <header className="subboard-header">{this.props.subboardName}</header>

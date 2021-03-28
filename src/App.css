@@ -31,3 +31,12 @@
 .task-card-header {
     font-weight: bold;
 }
+
+.task-card input {
+    border: none;
+    font-family: inherit;
+}
+
+.task-card textarea {
+    width: 90%;
+}
