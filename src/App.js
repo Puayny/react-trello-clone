@@ -28,13 +28,26 @@ class TaskCard extends React.Component {
 class Subboard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      taskCardIds: [],
+    }
+  }
+
+  addTask() {
+    this.setState({ taskCardIds: this.state.taskCardIds.concat(null) });
   }
 
   render() {
+    const taskCards = this.state.taskCardIds.map(function (item, index) {
+      return <TaskCard />
+    })
     return (
       <section className="subboard">
         <header className="subboard-header">{this.props.subboardName}</header>
-        <TaskCard />
+        {taskCards}
+        <button onClick={() => this.addTask()}>
+          (+) ADD TASK
+        </button>
       </section>
     )
   }
