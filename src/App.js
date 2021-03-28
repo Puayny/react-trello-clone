@@ -15,7 +15,6 @@ class TaskCard extends React.Component {
         </header>
         <div className="task-card-content">
           <textarea rows="5" defaultValue="Task card content"></textarea>
-
         </div>
       </section >
     )
@@ -50,7 +49,7 @@ class Subboard extends React.Component {
 
   render() {
     const taskCards = this.state.taskCardIds.map(function (item, index) {
-      return <TaskCard />
+      return <TaskCard key={index} />
     })
     const taskCountDisplayElement = this.getTaskCountDisplayElement();
 
