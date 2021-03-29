@@ -82,23 +82,35 @@ class Subboard extends React.Component {
     }
   }
 
+  // Find element to style upon drag over
+  findDragOverElementToStyle(event) {
+    let eleToStyle = event.target.closest(".subboard .task-card")
+      || event.target.closest(".subboard .subboard-bottom")
+    return eleToStyle;
+  }
+
   // Add styling when upon drag over
   handleTaskCardDragOver(event) {
-    // console.log(this);
-    const taskCardDraggedOver = event.target.closest(".task-card");
-    if (taskCardDraggedOver === null) { return; }
-    taskCardDraggedOver.classList.add("drag-border-before");
+    const eleToStyle = this.findDragOverElementToStyle(event)
+    if (eleToStyle === null) { return; }
+    eleToStyle.classList.add("drag-border-before");
     event.preventDefault();
   }
 
   // Remove styling upon drag leave
   handleTaskCardDragLeave(event) {
-    const taskCardDraggedOver = event.target.closest(".task-card");
-    if (taskCardDraggedOver === null) { return; }
-    taskCardDraggedOver.classList.remove("drag-border-before");
+    const eleToStyle = this.findDragOverElementToStyle(event)
+    if (eleToStyle === null) { return; }
+    eleToStyle.classList.remove("drag-border-before");
   }
 
-  // Move task card to new subboard when it is dragged and dropped over it
+
+  /**
+   * Move task card to new subboard when task card is dragged and dropped over subboard
+   * @param {event} event - drag event
+   * @param {integer} taskCardIndex - index of task cards on subboard
+   *     where task card will be inserted in
+   */
   handleTaskCardDrop(event, taskCardIndex) {
     // Ignore non-task card drops
     // There's definitely a better way
@@ -109,22 +121,25 @@ class Subboard extends React.Component {
     }
 
     event.preventDefault();
+
     // Only move task card when it is dragged to a subboard
     if (event.target.closest(".subboard") !== null) {
       // Remove styling added on drag over
-      ReactDOM.findDOMNode(this).getElementsByClassName("task-card")[taskCardIndex]
-        .classList.remove("drag-border-before");
+      this.handleTaskCardDragLeave(event);
 
       const taskCardId = taskCard.dataset.taskCardId;
       const taskCardIds = this.state.taskCardIds;
 
-      // Check whether task card already exists in current subboard
-      let taskCardPreviousIndex = taskCardIds.indexOf(taskCardId)
+      // Insert task card in current subboard
       let taskCardIdsNew =
         taskCardIds
           .slice(0, taskCardIndex)
           .concat(taskCardId)
           .concat(taskCardIds.slice(taskCardIndex))
+
+      // Check whether task card already exists in current subboard
+      let taskCardPreviousIndex = taskCardIds.indexOf(taskCardId)
+
       if (taskCardPreviousIndex === -1) {
         // For communication with the dragged task card, to denote that the
         // task card has been moved and the original one can be removed
@@ -135,6 +150,7 @@ class Subboard extends React.Component {
         if (taskCardPreviousIndex > taskCardIndex) {
           taskCardPreviousIndex++;
         }
+        // Remove old task card from subboard
         taskCardIdsNew = taskCardIdsNew
           .slice(0, taskCardPreviousIndex)
           .concat(taskCardIdsNew.slice(taskCardPreviousIndex + 1))
@@ -176,7 +192,7 @@ class Subboard extends React.Component {
   }
 
   render() {
-    // Create task cards' JSX
+    // Create JSX of task cards
     const taskCards = this.state.taskCardIds.map(function (taskCardId, taskCardIndex) {
       const taskCardHtmlId = this.props.subboardName + ":"
         + taskCardId + ":" + taskCardIndex;
@@ -199,7 +215,7 @@ class Subboard extends React.Component {
       )
     }, this)
 
-    // Create task count JSX
+    // Create JSX of task count
     const taskCountDisplayElement = this.createTaskCountDisplayElement();
 
     return (
@@ -207,13 +223,16 @@ class Subboard extends React.Component {
         <header className="subboard-header">{this.props.subboardName}</header>
         { taskCountDisplayElement}
         { taskCards}
-        <button className="add-task-card-btn"
-          onClick={() => this.addTaskCard()}
-          onDragOver={(event) => this.handleTaskCardDragOver(event)}
-          onDrop={(event) => this.handleTaskCardDrop(event)}
-        >
-          (+) ADD TASK
-        </button>
+        <div className="subboard-bottom">
+          <button className="add-task-card-btn"
+            onClick={() => this.addTaskCard()}
+            onDragOver={(event) => this.handleTaskCardDragOver(event)}
+            onDragLeave={(event) => this.handleTaskCardDragLeave(event)}
+            onDrop={(event) => this.handleTaskCardDrop(event, this.state.taskCardIds.length)}
+          >
+            (+) ADD TASK
+          </button>
+        </div>
       </section >
     )
   }

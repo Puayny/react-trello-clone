@@ -1,7 +1,6 @@
 /**
  * Create unique task card ID
- * For this exercise, assume that max 1 task card 
- * created per user per millisecond
+ * Assume max 1 task card created per user per millisecond
  * @param {string} userId
  * @returns task card ID
  */
