@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
 import * as DbUtils from './utils/db-utils.js'
 
@@ -20,12 +19,12 @@ class TaskCard extends React.Component {
     }
   }
 
-  // When task card is dragged. Track id of dragged task card 
+  // When task card is dragged, track id of dragged task card 
   handleTaskCardDragStart(event) {
     event.dataTransfer.setData('text', event.target.id);
   }
 
-  // Save changes made to task card inputs to db
+  // Save changes made to task card inputs, to db
   handleInputChange(db, event, cardPortion) {
     const newText = event.target.value;
     DbUtils.saveTaskCardChanges(db, this.state.taskCardId, newText, cardPortion)
@@ -96,7 +95,7 @@ class Subboard extends React.Component {
     return eleToStyle;
   }
 
-  // Add styling when upon drag over
+  // Add styling upon drag over
   handleTaskCardDragOver(event) {
     const eleToStyle = this.findDragOverElementToStyle(event)
     if (eleToStyle === null) { return; }
@@ -212,9 +211,9 @@ class Subboard extends React.Component {
     const taskCards = this.state.taskCardIds.map(function (taskCardId, taskCardIndex) {
       const taskCardHtmlId = this.props.subboardName + ":"
         + taskCardId + ":" + taskCardIndex;
-      // Note: React will re-render elements created using map function when 
+      // React will re-render elements created using map function when 
       // key changes, so set key to task card's html id, which will change
-      // when the position of a task card shifts
+      // when the position of a task card changes
       return (
         <TaskCard
           key={taskCardHtmlId}
