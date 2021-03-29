@@ -1,15 +1,33 @@
 import React from 'react';
 import './App.css';
 
+/**
+ * Create unique task card ID
+ * For this exercise, assume that max 1 task card 
+ * created per user per millisecond
+ * @param {string} userId
+ * @param {Object} db
+ * @returns task card ID
+ */
+function createTaskCardId(userId) {
+  return "USER" + userId + "TIME" + Date.now();
+}
+
+// For this exercise, assume there's only one user
+const USER_ID = 1;
+
 /** Each TaskCard represents a single task */
 class TaskCard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      "id": createTaskCardId(USER_ID)
+    }
   }
 
   render() {
     return (
-      <section className="task-card">
+      <section className="task-card" id={this.state.id}>
         <header className="task-card-header">
           <input type="text" defaultValue="Task header"></input>
         </header>
