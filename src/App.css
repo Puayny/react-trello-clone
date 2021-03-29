@@ -12,6 +12,8 @@
     background-color: rgb(0, 177, 79);
     color: white;
     font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.2em;
 }
 
 .subboards {
@@ -21,15 +23,21 @@
 }
 .subboard {
     flex: 1 1;
+    background-color: rgb(245 245 245);
+    padding: 10px;
+}
+.subboard:not(:last-child) {
+    margin-right: 2%;
 }
 
 .subboard-header {
     text-align: center;
     font-weight: bold;
+    font-size: 1.1em;
 }
 
 .subboard-task-count-display {
-    width: 100%;
+    width: 95%;
     text-align: right;
 }
 
@@ -39,18 +47,28 @@
 
 .task-card {
     padding: 0px;
-    margin-right: 10%;
+    margin-bottom: 20px;
 }
-.task-card input {
+.task-card input, textarea {
     border: none;
     padding: 0px;
     width: 100%;
 }
-
-.task-card textarea {
-    padding: 0px;
-    width: 100%;
+.task-card input {
+    font-size: 1.1em;
+    padding-bottom: 5px;
+    font-weight: 500;
 }
+.task-card textarea {
+    font-size: 1em;
+}
+
+.task-card-input-area {
+    background-color: white;
+    padding: 5px;
+    margin: 10px;
+}
+
 
 input, textarea, button {
     font-family:inherit;
@@ -58,4 +76,22 @@ input, textarea, button {
 
 .drag-border-before {
     border-top: 2px solid blue;
+}
+
+.add-task-card-btn {
+    background-color: white;
+    border: 1px solid rgb(160, 160, 160);
+    font-size: 1em;
+    width: 100%;
+    margin: 10px;
+    padding: 5px 0 5px 0;
+    transition: background-color 0.3s;
+}
+.add-task-card-btn:hover {
+    background-color: rgb(236, 236, 236);
+}
+.subboard-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

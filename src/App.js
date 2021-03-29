@@ -47,19 +47,21 @@ class TaskCard extends React.Component {
         onDragLeave={((event) => this.props.onDragLeave(event))}
         onDrop={(event) => this.props.onDrop(event, this.state.taskCardIndex)}
       >
-        <header className="task-card-header">
-          <input type="text"
-            defaultValue={taskCardDetails["header"]}
-            placeholder="Task header"
-            onChange={(event) => this.handleInputChange(this.state.db, event, "header")}
-          ></input>
-        </header>
-        <div className="task-card-content">
-          <textarea rows="5"
-            defaultValue={taskCardDetails["content"]}
-            placeholder="Task content"
-            onChange={(event) => this.handleInputChange(this.state.db, event, "content")}
-          ></textarea>
+        <div className="task-card-input-area">
+          <header className="task-card-header">
+            <input type="text"
+              defaultValue={taskCardDetails["header"]}
+              placeholder="Task header"
+              onChange={(event) => this.handleInputChange(this.state.db, event, "header")}
+            ></input>
+          </header>
+          <div className="task-card-content">
+            <textarea rows="5"
+              defaultValue={taskCardDetails["content"]}
+              placeholder="Task content"
+              onChange={(event) => this.handleInputChange(this.state.db, event, "content")}
+            ></textarea>
+          </div>
         </div>
       </section >
     )
