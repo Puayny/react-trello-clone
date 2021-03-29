@@ -25,9 +25,18 @@ class TaskCard extends React.Component {
     }
   }
 
+  // When element is dragged
+  elementDrag(event) {
+    event.dataTransfer.setData('text', event.target.id);
+  }
+
   render() {
     return (
-      <section className="task-card" id={this.state.id}>
+      <section
+        className="task-card" id={this.state.id}
+        draggable={true}
+        onDragStart={(event) => this.elementDrag(event)}
+      >
         <header className="task-card-header">
           <input type="text" defaultValue="Task header"></input>
         </header>
@@ -51,6 +60,19 @@ class Subboard extends React.Component {
     }
   }
 
+  // When another element is dragged over a subboard
+  allowElementDrop(event) {
+    event.preventDefault();
+  }
+
+  // When another element is dragged and dropped onto a subboard
+  elementDrop(event) {
+    event.preventDefault();
+    const elementId = event.dataTransfer.getData('text');
+    const subboard = event.target.closest(".subboard");
+    subboard.appendChild(document.getElementById(elementId));
+  }
+
   addTask() {
     this.setState({ taskCardIds: this.state.taskCardIds.concat(null) });
   }
@@ -72,14 +94,17 @@ class Subboard extends React.Component {
     const taskCountDisplayElement = this.getTaskCountDisplayElement();
 
     return (
-      <section className="subboard">
+      <section className="subboard"
+        onDragOver={(event) => this.allowElementDrop(event)}
+        onDrop={(event) => this.elementDrop(event)}
+      >
         <header className="subboard-header">{this.props.subboardName}</header>
-        {taskCountDisplayElement}
-        {taskCards}
-        <button onClick={() => this.addTask()}>
+        { taskCountDisplayElement}
+        { taskCards}
+        <button className="add-task-btn" onClick={() => this.addTask()}>
           (+) ADD TASK
         </button>
-      </section>
+      </section >
     )
   }
 }
