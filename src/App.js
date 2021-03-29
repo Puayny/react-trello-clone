@@ -54,6 +54,11 @@ class TaskCard extends React.Component {
               placeholder="Task header"
               onChange={(event) => this.handleInputChange(this.state.db, event, "header")}
             ></input>
+            <button
+              title="Delete card"
+              className="delete-task-card-btn"
+              onClick={() => this.props.onDeleteBtnClick(this.state.taskCardIndex)}
+            >X</button>
           </header>
           <div className="task-card-content">
             <textarea rows="5"
@@ -176,6 +181,15 @@ class Subboard extends React.Component {
     }
   }
 
+  // Delete task card (from delete card button)
+  handleTaskCardDelete(taskCardIndex) {
+    const taskCardIds = this.state.taskCardIds;
+    const taskCardIdsNew = taskCardIds
+      .slice(0, taskCardIndex)
+      .concat(taskCardIds.slice(taskCardIndex + 1));
+    this.setState({ taskCardIds: taskCardIdsNew });
+  }
+
   // Add task card to subboard
   addTaskCard() {
     const taskCardId = DbUtils.createTaskCard(this.state.db, USER_ID);
@@ -212,6 +226,7 @@ class Subboard extends React.Component {
           onDragOver={(event) => this.handleTaskCardDragOver(event)}
           onDragLeave={(event) => this.handleTaskCardDragLeave(event)}
           onDrop={(event, taskCardIndex) => this.handleTaskCardDrop(event, taskCardIndex)}
+          onDeleteBtnClick={(taskCardIndex) => this.handleTaskCardDelete(taskCardIndex)}
           db={this.state.db}
         />
       )
