@@ -37,15 +37,25 @@
     font-weight: bold;
 }
 
+.task-card {
+    padding: 0px;
+    margin-right: 10%;
+}
 .task-card input {
     border: none;
-    width: 90%;
+    padding: 0px;
+    width: 100%;
 }
 
 .task-card textarea {
-    width: 90%;
+    padding: 0px;
+    width: 100%;
 }
 
 input, textarea, button {
     font-family:inherit;
+}
+
+.drag-border-before {
+    border-top: 2px solid blue;
 }
